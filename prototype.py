@@ -2,10 +2,9 @@
 import yara # for scanning files
 import os # for file operations
 import sys # for command line arguments
-import pyew # for monitoring stages of the program
+#import pyew # for monitoring stages of the program
 import time # for timing the program
 import r2pipe # for disassembling files
-import AnalyzePE # for analyzing PE files
 import scapy # for network operations
 from cryptography.fernet import Fernet # for encryption
 
@@ -47,8 +46,8 @@ for root, dirs, files in os.walk(directory):
         # start by opening the file
         with open(filep, "rb") as f:
             # start the pyew monitor
-            mon = pyew.Monitor()
-            mon.start()
+            #mon = pyew.Monitor()
+            #mon.start()
             # read the file
             f.read()
 
@@ -64,6 +63,6 @@ for root, dirs, files in os.walk(directory):
             # encrypt the file
             f.write(Fernet.generate_key())
             # stop the pyew monitor
-            mon.stop()
+            #mon.stop()
             # print the pyew monitor results
             print(mon.dump())
