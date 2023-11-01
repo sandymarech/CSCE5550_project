@@ -1,0 +1,8 @@
+To run the encryption
+
+$python encrypt <file_name>
+
+
+to run decryption 
+
+$python decrypt <file_name>
