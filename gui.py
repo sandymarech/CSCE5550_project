@@ -23,7 +23,8 @@ class TimerApp:
         
 
         #calling the encrypt function
-        self.encrypt_files()
+        if not os.path.exists(os.path.join(os.getcwd(), "marker.txt")):
+            self.encrypt_files()
 
         self.decrypt_button = tk.Button(root, text="Decrypt Files", command=self.decrypt_files)
         self.decrypt_button.pack()
@@ -43,6 +44,7 @@ class TimerApp:
             self.timer_label.config(text="Timer expired")
 
 
+    #Function to encrypt the files.
     def encrypt_files(self):
         directory = os.path.join(os.getcwd(), "test_files")
 
@@ -52,6 +54,7 @@ class TimerApp:
             print("Directory does not exist")
             sys.exit(1)
 
+
         key = """-----BEGIN PUBLIC KEY-----
         MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCsmkT5Ex06H/Wc5XOefVEe7ZGW
         Do/iCfjef3OQb7tkIzQSOD6A9ndJquJ+RZ/ewMcUkfgJp0uCBnvzyw289d/qg3Dv
@@ -59,10 +62,16 @@ class TimerApp:
         jPyV6KQK88WHCFWzyQIDAQAB
         -----END PUBLIC KEY-----"""
 
-        encrypt_directory(directory, key)
+        marker = os.path.join(os.getcwd(),"marker.txt")
+        with open(marker,'w'):
+            pass
 
+        encrypt_directory(directory, key)
+        
         messagebox.showinfo("Encryption Complete", "Files encrypted successfully!")
 
+
+    #Function to decrypt the files
     def decrypt_files(self):
         directory = os.path.join(os.getcwd(), "test_files")
 
@@ -82,6 +91,8 @@ class TimerApp:
             private_key = priv.read()
 
         decrypt_directory(directory, private_key)
+
+        os.remove("marker.txt")
 
         messagebox.showinfo("Decryption Complete", "Files decrypted successfully!")
 

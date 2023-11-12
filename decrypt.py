@@ -30,4 +30,20 @@ def decrypt_directory(directory, private_key):
 with open('privateKey.pem', 'rb') as priv:
     private_key = priv.read()
     
+"""
+directory = os.path.join(os.getcwd(), "test_files")
 
+
+    # # if the directory does not exist, we will exit the program
+if not os.path.exists(directory):
+    print("Directory does not exist")
+    sys.exit(1)
+
+private_key_path = 'privateKey.pem'
+
+
+with open(private_key_path, 'rb') as priv:
+    private_key = priv.read()
+
+decrypt_directory(directory, private_key)
+"""
