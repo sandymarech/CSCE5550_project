@@ -25,12 +25,12 @@ def decrypt_directory(directory, private_key):
 
             decrypt_file(file_path, private_key)
 
-
+"""
 #reading the private key from the file
 with open('privateKey.pem', 'rb') as priv:
     private_key = priv.read()
     
-"""
+
 directory = os.path.join(os.getcwd(), "test_files")
 
 

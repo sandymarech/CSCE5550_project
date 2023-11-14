@@ -71,6 +71,7 @@ class TimerApp:
         messagebox.showinfo("Encryption Complete", "Files encrypted successfully!")
 
 
+
     #Function to decrypt the files
     def decrypt_files(self):
         directory = os.path.join(os.getcwd(), "test_files")
@@ -94,7 +95,11 @@ class TimerApp:
 
         os.remove("marker.txt")
 
-        messagebox.showinfo("Decryption Complete", "Files decrypted successfully!")
+        messagebox.showinfo("Decryption Complete", "Files decrypted successfully! Exiting in 5 seconds!")
+
+        time.sleep(3)
+
+        sys.exit()
 
 
 
