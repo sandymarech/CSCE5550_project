@@ -14,8 +14,7 @@ Types if import:
 IMPORTANT: Do NOT post this list to the issue-tracker. Use it as a basis for
             tracking down the missing module yourself. Thanks!
 
-missing module named 'org.python' - imported by copy (optional)
-missing module named org - imported by pickle (optional)
+missing module named _sha512 - imported by random (optional)
 missing module named pwd - imported by posixpath (delayed, conditional, optional), shutil (delayed, optional), tarfile (optional), pathlib (delayed, optional), subprocess (delayed, conditional, optional)
 missing module named grp - imported by shutil (delayed, optional), tarfile (optional), pathlib (delayed, optional), subprocess (delayed, conditional, optional)
 missing module named posix - imported by os (conditional, optional), posixpath (optional), shutil (conditional), importlib._bootstrap_external (conditional)
@@ -29,4 +28,5 @@ missing module named 'java.lang' - imported by platform (delayed, optional)
 missing module named java - imported by platform (delayed)
 missing module named _winreg - imported by platform (delayed, optional)
 missing module named cffi - imported by Crypto.Util._raw_api (optional)
+missing module named imp - imported by Crypto.Util._raw_api (conditional)
 missing module named StringIO - imported by Crypto.Util.py3compat (conditional)
